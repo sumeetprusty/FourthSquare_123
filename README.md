@@ -1,5 +1,5 @@
 ## Student Grade Tracker Management System
-The Student Grade Tracker Management System is created by using SQL and Python. It's a tool that helps users manage student information and track their grades. With this application, users can add, update, and remove students, as well as add grades for each student. It also provides features to calculate averages, determine student status, and display all student records.
+The Student Grade Tracker Management System is created by using SQL and Python. It's a management system that helps users manage student information and track their grades. With this, users can add, update, and remove students, as well as add grades for each student. It also provides features to calculate averages, determine student status, and display all student records.
 ## Prerequisites
 
 - Python 3.x installed on the system. [Click here](https://www.python.org/downloads/)
