@@ -183,7 +183,7 @@ for num in even_numbers_iterator:
 
 ## Explanation of the above code -
 
-###**Initialization:**
+### **Initialization:**
 
 
 
@@ -191,13 +191,13 @@ for num in even_numbers_iterator:
 *   It takes max_numbers as an argument to define how many even numbers to generate.
 *  It also initializes self.current to 0 and self.count to 0.
 
-###**Iterator Protocol:**
+### **Iterator Protocol:**
 
 *   The __iter__ method returns self, indicating that the object itself is the iterator.
 *  The __next__ method contains the logic to return the next even number.
 *  If the count of generated numbers has reached max_numbers, it raises StopIteration. Otherwise, it calculates the next even number, updates the state, and returns the current even number.
 
-###**Using the Iterator:**
+### **Using the Iterator:**
 
 *   An instance of EvenNumbers is created with max_numbers set to 5.
 *   A for loop is used to iterate through the even numbers.
@@ -250,7 +250,7 @@ print(next(my_iterator))
     StopIteration: 
 
 
-##Explanation of Built-in Iterators:
+## Explanation of Built-in Iterators:
 
 
 *   **Conversion:** The iter() function is used to convert a list (my_list) into an iterator (my_iterator).
