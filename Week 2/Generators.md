@@ -3,7 +3,7 @@
 
 Generator functions allow you to declare a function that behaves like an iterator, i.e. it can be used in a for loop.
 
-###The simplification of code is a result of generator function and generator expression support provided by Python.
+### The simplification of code is a result of generator function and generator expression support provided by Python.
 
 To illustrate this, we will compare different implementations that implement a function, "firstn", that represents the first n non-negative integers, where n is a really big number, and assume that each integer takes up a lot of space, say 10 megabytes each.
 
