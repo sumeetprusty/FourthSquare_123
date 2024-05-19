@@ -4,8 +4,7 @@ An **iterator** in Python is an object that allows you to traverse through all t
 
 
 1.   __iter__(): Returns the iterator object itself.
-2.   
-__next__(): Returns the next element in the sequence. When there are no more elements, it raises a StopIteration exception to signal that the iteration is complete.
+2.   __next__(): Returns the next element in the sequence. When there are no more elements, it raises a StopIteration exception to signal that the iteration is complete.
 
 So let's first consider the basic python range function:
 
