@@ -251,7 +251,7 @@ print(next(my_iterator))
     StopIteration: 
 
 
-##Explanation of Built-in Iterators:
+## Explanation of Built-in Iterators:
 
 
 *   **Conversion:** The iter() function is used to convert a list (my_list) into an iterator (my_iterator).
