@@ -23,7 +23,7 @@ def get_database_connection() -> Optional[MySQLConnection]:
 def menu() -> None:
     print("\n\t\t\t\tSTUDENT GRADE TRACKER\n\n")
     print("\t\t\t\t\tMAIN MENU\n")
-    print("\t\t1. Add Student\t\t\t\t 2. Update Student \n\n\t\t3. Remove Student\t\t\t 4. Add grade\n\n\t\t5. Calculate Average\t\t\t6. Status\n\n\t\t7. Display\t\t\t\t8. Exit")
+    print("\t\t1. Add Student\t\t\t\t2. Update Student \n\n\t\t3. Remove Student\t\t\t4. Add grade\n\n\t\t5. Calculate Average\t\t\t6. Status\n\n\t\t7. Display\t\t\t\t8. Subject Wise Report\n\n\t\t9. Overall Statistics\t\t\t10. Exit")
 
 
 def add_student() -> None:
@@ -493,6 +493,82 @@ def display_entries() -> None:
         print(tabulate(entries, headers=headers, tablefmt="grid"))
     else:
         print("No entries found.")
+        
+# Added the functionality for generating subject wise report 
+def generate_subject_wise_report() -> None:
+    """
+    Generates and displays a report for each subject including average, highest, and lowest marks.
+    """
+    print("\n\t\t\t\tSUBJECT-WISE REPORT")
+    con = get_database_connection()
+    if not con:
+        print("Failed to connect to the database.")
+        return
+    cur = con.cursor()
+
+    subjects = ['Maths', 'English', 'SST', 'Science', 'Computer Science']
+    report = []
+
+    for subject in subjects:
+        query = f"SELECT AVG({subject.lower().replace(' ', '_')}), MAX({subject.lower().replace(' ', '_')}), MIN({subject.lower().replace(' ', '_')}) FROM student_info"
+        cur.execute(query)
+        avg_marks, max_marks, min_marks = cur.fetchone()
+        report.append([subject, round(avg_marks, 2), max_marks, min_marks])
+
+    headers = ["Subject", "Average Marks", "Highest Marks", "Lowest Marks"]
+    print(tabulate(report, headers=headers, tablefmt="pretty"))
+
+    con.close()
+    
+# Added the functionality for generating overall summary of the grades (For Example : Total number of students, highest percentage, etc.)
+def overall_summary_report() -> None:
+    """
+    Displays an overall summary report including number of students average for all students, highest, and lowest percentage as well.
+    """
+    print("\n\t\t\t\tOVERALL SUMMARY REPORT")
+    con = get_database_connection()
+    if not con:
+        print("Failed to connect to the database.")
+        return
+    cur = con.cursor()
+
+    # Query to fetch all student records along with grades
+    query = "SELECT * FROM grade_table"
+    cur.execute(query)
+    results = cur.fetchall()
+
+    if results:
+        report = []
+
+        # Calculate overall statistics
+        total_students = len(results)
+        total_marks = 0
+        highest_percentage = 0
+        lowest_percentage = 100
+        for row in results:
+            total_marks += row[3]
+            if row[4] > highest_percentage:
+                highest_percentage = row[4]
+            if row[4] < lowest_percentage:
+                lowest_percentage = row[4]
+
+        # Calculate overall average percentage
+        overall_average_percentage = total_marks / (total_students * 500) * 100
+
+        # Add overall statistics to the report
+        report.append(["Total Students", total_students])
+        report.append(["Overall Average Percentage", "{:.2f}".format(overall_average_percentage)])
+        report.append(["Highest Percentage", highest_percentage])
+        report.append(["Lowest Percentage", lowest_percentage])
+
+        # Display the report
+        headers = ["Statistic", "Value"]
+        print(tabulate(report, headers=headers, tablefmt="pretty"))
+    else:
+        print("No student records found.")
+
+    con.close()
+
 
 def main() -> None:
     while True:
@@ -513,8 +589,14 @@ def main() -> None:
                 get_student_status()
             elif ch == 7:
                 display_entries()
+            # added additional functionality 
             elif ch == 8:
-                exit()
+                generate_subject_wise_report()
+            elif ch==9:
+            # added additional functionality    
+                overall_summary_report()
+            elif ch==10:
+                exit()    
             else:
                 print("PLEASE CHOOSE THE CORRECT CHOICE AND TRY AGAIN!!")
         except ValueError:
